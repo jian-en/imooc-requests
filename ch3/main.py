@@ -20,13 +20,15 @@ def request_method():
 
 
 def params_request():
-    response = requests.get(build_uri('users'), params={'since': 135})
+    response = requests.get(build_uri('users'), params={'since': 11})
     print better_print(response.text)
+    print response.request.headers
+    print response.url
 
 
 def json_request():
-    # response = requests.patch(build_uri('user'), auth=('imoocdemo', 'imoocdemo123'), data={'name': 'babymooc1', 'email': 'helloworld@imooc.org'})
-    response = requests.delete(build_uri('user/emails'), auth=('imoocdemo', 'imoocdemo123'), json=['hello@github.com'])
+    # response = requests.patch(build_uri('user'), auth=('imoocdemo', 'imoocdemo123'), json={'name': 'babymooc2', 'email': 'hello-world@imooc.org'})
+    response = requests.post(build_uri('user/emails'), auth=('imoocdemo', 'imoocdemo123'), json=['helloworld@github.com'])
     print better_print(response.text)
     print response.request.headers
     print response.request.body
@@ -43,9 +45,10 @@ def timeout_request():
         print e.message
     else:
         print response.text
+        print response.status_code
 
 
-def hard_request():
+def hard_requests():
     from requests import Request, Session
     s = Session()
     headers = {'User-Agent': 'fake1.3.4'}
@@ -59,6 +62,5 @@ def hard_request():
     print resp.request.headers
     print resp.text
 
-
 if __name__ == '__main__':
-    hard_request()
+    hard_requests()
